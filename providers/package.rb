@@ -70,7 +70,7 @@ action :install do
         ignore_failure true
       end
     when 'mpkg', 'pkg'
-      execute "sudo installer -pkg '/Volumes/#{volumes_dir}/#{new_resource.app}.#{new_resource.type}' -target /" do
+      execute "sudo installer -allowUntrusted -pkg '/Volumes/#{volumes_dir}/#{new_resource.app}.#{new_resource.type}' -target /" do
         # Prevent cfprefsd from holding up hdiutil detach for certain disk images
         environment('__CFPREFERENCES_AVOID_DAEMON' => '1') if Gem::Version.new(node['platform_version']) >= Gem::Version.new('10.8')
       end
